@@ -1,4 +1,14 @@
-# Backend
+# Backend – SmartFaktura 2.0
 
-API for SmartFaktura 2.0  
-Tech: Node.js, Express, PostgreSQL
+Dette er API-et for SmartFaktura.
+
+## Teknologi
+- Node.js
+- Express
+- PostgreSQL (kommer)
+
+## Kjør lokalt
+
+```bash
+npm install
+node src/app.js
