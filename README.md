@@ -1,9 +1,16 @@
 # SmartFaktura 2.0
-
 Goal:
 Build a modern, multi-tenant invoicing SaaS.
-Initial market: EU.
-Expansion: Africa.
+
+Design target:
+EU-level quality and compliance.
+
+Initial market:
+Africa.
+
+Long-term expansion:
+EU.
+
 Principles:
 - One senior developer
 - MVP first
