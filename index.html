@@ -8,23 +8,26 @@
       font-family: Arial, sans-serif;
       background: #0f172a;
       color: white;
-      margin: 0;
-      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      height: 100vh;
+      margin: 0;
     }
     .box {
       background: #1e293b;
       padding: 40px;
       border-radius: 12px;
       text-align: center;
+      box-shadow: 0 0 40px rgba(0,0,0,0.4);
     }
     footer {
-      margin-top: 40px;
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
       font-size: 14px;
-      opacity: 0.8;
+      color: #94a3b8;
     }
   </style>
 </head>
@@ -32,12 +35,11 @@
   <div class="box">
     <h1>Zemichael Smartinvoice</h1>
     <p>Fakturatjeneste for små bedrifter</p>
-    <p>Status: <b>Live</b></p>
+    <strong>Status: Live</strong>
   </div>
 
   <footer>
-    Org nr: 936 587 720<br>
-    Adresse: Follesevegen 103, Norge
+    Org nr: 936 587 720 · Follesevegen 103, Norge
   </footer>
 </body>
 </html>
