@@ -1,57 +1,44 @@
-app.get("/", (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Smartinvoice</title>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: white;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-          }
-          .main {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-          .box {
-            text-align: center;
-            background: #1e293b;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.4);
-          }
-          h1 { font-size: 48px; margin-bottom: 10px; }
-          .status { color: #22c55e; font-weight: bold; }
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <title>Zemichael Smartinvoice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background: #1e293b;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 500px;
+      text-align: center;
+    }
+    h1 { color: #38bdf8; }
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #cbd5f5;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Zemichael Smartinvoice</h1>
+    <p>Enkel faktura-løsning for små bedrifter.</p>
+    <p>Live side fungerer 🎉</p>
 
-          footer {
-            background: #020617;
-            padding: 15px;
-            text-align: center;
-            font-size: 14px;
-            opacity: 0.85;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="main">
-          <div class="box">
-            <h1>Zemichael Smartinvoice</h1>
-            <p>Fakturatjeneste for små bedrifter</p>
-            <p>Status: <span class="status">Live</span></p>
-          </div>
-        </div>
-
-        <footer>
-          Zemichael Smartinvoice · Org.nr 936 587 720 · Follesevegen 103, Norge
-        </footer>
-      </body>
-    </html>
-  `);
-});
+    <footer>
+      Org nr: 936 587 720<br>
+      Adresse: Follesevegen 103, Norge
+    </footer>
+  </div>
+</body>
+</html>
