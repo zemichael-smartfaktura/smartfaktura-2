@@ -1,50 +1,57 @@
 app.get("/", (req, res) => {
   res.send(`
     <!DOCTYPE html>
-    <html lang="no">
-    <head>
-      <meta charset="UTF-8" />
-      <title>Smartfaktura</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          background: #0f172a;
-          color: white;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-        }
-        .box {
-          text-align: center;
-          background: #1e293b;
-          padding: 40px;
-          border-radius: 12px;
-          max-width: 500px;
-        }
-        h1 { color: #38bdf8; }
-        button {
-          margin-top: 20px;
-          padding: 12px 24px;
-          border: none;
-          border-radius: 8px;
-          background: #38bdf8;
-          color: black;
-          font-size: 16px;
-          cursor: pointer;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="box">
-        <h1>Smartfaktura</h1>
-        <p>En enkel fakturaløsning for små bedrifter.</p>
-        <p>🚀 MVP er live på Vercel</p>
-        <button onclick="alert('Kommer snart!')">
-          Start gratis
-        </button>
-      </div>
-    </body>
+    <html>
+      <head>
+        <title>Smartinvoice</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+          }
+          .main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .box {
+            text-align: center;
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.4);
+          }
+          h1 { font-size: 48px; margin-bottom: 10px; }
+          .status { color: #22c55e; font-weight: bold; }
+
+          footer {
+            background: #020617;
+            padding: 15px;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.85;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="main">
+          <div class="box">
+            <h1>Zemichael Smartinvoice</h1>
+            <p>Fakturatjeneste for små bedrifter</p>
+            <p>Status: <span class="status">Live</span></p>
+          </div>
+        </div>
+
+        <footer>
+          Zemichael Smartinvoice · Org.nr 936 587 720 · Follesevegen 103, Norge
+        </footer>
+      </body>
     </html>
   `);
 });
