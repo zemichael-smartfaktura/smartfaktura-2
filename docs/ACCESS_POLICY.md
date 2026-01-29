@@ -4,7 +4,18 @@
 This document defines access rules for the SmartFaktura codebase and infrastructure.
 The goal is to protect ownership, prevent unauthorized changes, and ensure controlled development.
 
----
+SmartFaktura – Developer Access Policy
+
+1. All external developers are added as Outside Collaborators with READ access by default.
+2. READ access allows code review, documentation review, and technical discussion only.
+3. WRITE access is granted only after:
+   - Contract is signed
+   - MVP scope is finalized
+   - Timeline and milestones are approved
+4. All code changes must go through Pull Requests.
+5. Direct pushes to main branch are not allowed.
+6. Access can be downgraded or revoked at any time if scope or contract changes.
+
 
 ## Roles Overview
 
@@ -34,7 +45,6 @@ Read access does NOT allow:
 - Accessing secrets or environment variables
 - Deploying to production
 
----
 
 ### Developer – Write Access
 Write access is granted only after all requirements below are met:
@@ -79,8 +89,8 @@ Write access does NOT allow:
   - Developer access is downgraded to Read or removed entirely.
   - No further changes are permitted without a new agreement.
 
----
 
 ## Final Notes
 This policy is binding for all contributors to the SmartFaktura project.
 Any work outside the defined scope or access level requires written approval.
+
