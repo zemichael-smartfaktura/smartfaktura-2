@@ -1,307 +1,157 @@
-Smartfaktura 1.0 – MVP
+# SmartFaktura 1 – MVP
 
+SmartFaktura is a modern, multi-tenant SaaS invoicing platform.
+This repository contains the codebase and documentation for **SmartFaktura 1 (MVP)**.
 
+---
 
+## 🎯 Purpose of SmartFaktura 1
 
+SmartFaktura 1 is a **strictly scoped MVP** designed to:
+- Validate core invoicing workflows
+- Establish a scalable technical foundation
+- Prepare for future EU and international expansion
 
+The MVP prioritizes **functionality, stability, and clarity** over advanced features or complex compliance.
 
+---
 
-Vision
+## ⏱ Timeline
 
+- **Fixed timeline:** 2 months (8 weeks)
+- Development follows a **week-by-week milestone plan**
+- Any functionality that cannot be delivered within this timeframe is considered **out of scope**
 
+---
 
+## 💰 Budget
 
+- Fixed total budget (as agreed separately via contract)
+- No open-ended or undefined work
+- Any work outside scope requires a **separate agreement**
 
-Smartfaktura is a lean, modern, multi-tenant invoicing SaaS.
+---
 
+## 👤 Target Users
 
+SmartFaktura 1 is designed for:
+- Small and medium-sized businesses (SMBs)
+- Freelancers and independent professionals
+- Small IT and service companies
 
-Initial market: Africa
+Primary early focus:
+- EU-ready architecture
+- Initial launch markets may include selected African countries
 
-Long-term expansion: EU
+---
 
+## ✅ In Scope (SmartFaktura 1)
 
+The MVP includes the following core features:
 
-The goal is to validate real user demand for a simple invoicing product before building a full accounting system.
+### Core
+- User authentication (email + password)
+- Organization / company setup
+- Multi-tenant architecture (one system, multiple companies)
+- Role-based access (basic)
 
+### Invoicing
+- Create, edit, and manage invoices
+- Manual VAT/tax rate per invoice line or invoice
+- PDF invoice generation
+- Invoice numbering
+- Invoice status tracking (draft / sent / paid)
 
+### Customers
+- Add and manage customers
+- Customer details: name, email, address, country
 
+### System
+- English language only
+- Prepared for i18n (no multi-language UI in MVP)
+- Prepared for future multi-country tax logic
+- Basic auditability (timestamps, ownership)
 
+---
 
+## ❌ Out of Scope (Explicitly Excluded)
 
+The following are **not included** in SmartFaktura 1:
 
+- Country-specific VAT or tax rules
+- Automated tax calculations per country
+- Accounting integrations
+- Payment gateways (Stripe, PayPal, etc.)
+- Bank integrations
+- Advanced reporting or analytics
+- Multi-language UI
+- Mobile applications
+- Marketplace, plugins, or add-ons
+- Pixel-perfect or final UI/UX design
+- Regulatory compliance beyond basic invoicing logic
 
+Any feature not explicitly listed as **In Scope** is considered **Out of Scope**.
 
-Business Model
+---
 
+## 🎨 UI / UX Scope
 
+- No final wireframes are provided at project start
+- Early phase focuses on:
+  - Aligning user flows
+  - Delivering a simple, functional UI
+- Design priority:
+  - Clarity
+  - Usability
+  - Speed of implementation
+- Visual polish and advanced design are deferred to later versions
 
+---
 
+## 🧱 Technical Principles
 
-Smartfaktura is a subscription-based SaaS.
+- Clean, maintainable codebase
+- Full code ownership by SmartFaktura
+- No vendor lock-in
+- Scalable architecture suitable for future expansion
+- All development tracked via GitHub
 
+---
 
+## 🌱 Future Versions (Not MVP)
 
-Target users: small businesses and freelancers
-Pricing: monthly subscription (exact pricing defined after MVP validation)
-Core value: send professional invoices quickly and easily
+The following are planned for later versions:
+- Country-specific tax engines
+- EU VAT compliance automation
+- Multi-language UI
+- Payments and accounting integrations
+- Advanced roles and permissions
+- Public API and integrations
 
+These are **not part of SmartFaktura 1**.
 
+---
 
+## 🔒 Access & Development Rules
 
+- All external developers start with **Read-only access**
+- Write access is granted only after:
+  - Contract signing
+  - Scope lock
+  - Milestone approval
+- `main` branch is protected
+- All changes must go through Pull Requests
 
+See `docs/ACCESS_POLICY.md` for details.
 
+---
 
+## 📌 Final Notes
 
+This README represents the **locked scope** for SmartFaktura 1 (MVP).
+Any changes, additions, or extensions require written approval and may impact timeline and budget.
 
-
-Product Principles
-
-
-
-
-
-One senior developer
-MVP first
-Clean architecture
-No legacy code
-Full ownership by Smartfaktura
-Build for extension, not for perfection
-
-
-
-
-
-
-
-
-
-
-Scope – MVP (v1)
-
-
-
-
-
-Only the following features are included in v1:
-
-
-
-Multi-tenant system (single database, strict tenant isolation)
-User authentication
-Companies (tenants)
-Customers
-Products / services
-Invoices (create, edit, send)
-Manual VAT field per invoice
-PDF invoice export
-Email sending
-Basic dashboard (sent invoices, totals)
-
-
-
-
-
-
-
-
-
-
-Tax & Language Model (v1)
-
-
-
-
-
-
-
-VAT / Tax
-
-
-
-
-
-Single generic VAT field
-Manual rate per invoice
-No country-specific tax logic in v1
-Architecture must support multi-country tax rules later
-
-
-
-
-
-
-Language
-
-
-
-
-
-English only in v1
-System prepared for i18n
-No multi-language UI in MVP
-
-
-
-
-
-
-
-
-
-
-Success Criteria (MVP)
-
-
-
-
-
-Smartfaktura v1 is considered successful if:
-
-
-
-Real users actively send invoices
-At least 5–10 paying customers
-Clear signal that users are willing to pay
-We can validate or kill the idea based on real usage
-
-
-
-
-
-
-
-
-
-
-Non-goals (v1)
-
-
-
-
-
-The following are explicitly out of scope:
-
-
-
-Competing with full accounting systems
-Supporting all countries
-Advanced reporting
-Business automation features
-Optimization for scale
-
-
-
-
-
-
-
-
-
-
-Constraints
-
-
-
-
-
-Budget: ~8000 USD
-Timeline: ~8 weeks
-Team: 1 senior developer
-Focus: functionality, not polish
-
-
-
-
-
-
-
-
-
-
-Ownership & Control
-
-
-
-
-
-All source code owned by Smartfaktura
-All infrastructure accounts owned by Smartfaktura
-GitHub is the single source of truth
-No external services without approval
-No vendor lock-in
-
-
-
-
-
-
-
-
-
-
-Communication Model
-
-
-
-
-
-Primary communication: written (GitHub + chat)
-All decisions documented
-Calls only when necessary
-No features added without written approval
-
-
-
-
-
-
-
-
-
-
-Product Contract
-
-
-
-
-
-Anything not listed in this document is out of scope for v1.
-
-
-
-Any new feature requires:
-
-
-
-Written proposal
-Impact on budget and timeline
-Explicit approval by Smartfaktura
-
-
-
-
-
-
-
-
-
-
-High-Level Roadmap (by developer)
-
-
-
-
-
-Weeks 1–2:
-Domain models, architecture, infra setup
-Weeks 3–6:
-Core flows (auth, tenants, invoices, PDF, email, dashboard)
-Weeks 7–8:
-Hardening, security, migrations, cleanup, polish
-
-
-
-
-No feature creep. Final time is for stability, not new ideas.
-
+This document is the primary reference for:
+- Development scope
+- Contract alignment
+- Milestone acceptance
