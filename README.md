@@ -142,9 +142,20 @@ These are **not part of SmartFaktura 1**.
 - `main` branch is protected
 - All changes must go through Pull Requests
 
-See `docs/ACCESS_POLICY.md` for details.
+See `docs/ACCESS_POLICY.md` for details
 
----
+
+### Contractual Scope Lock
+
+This repository, including all issues, milestones, and documentation, represents the agreed and locked scope for SmartFaktura 1 (MVP).
+
+The developer may not modify, remove, or add functionality, requirements, timelines, or scope definitions without prior written approval from the project owner.
+
+Any work outside the defined scope requires a separate written agreement and may affect timeline and budget.
+
+This repository and its contents serve as the primary contractual reference for development scope and milestone acceptance.
+
+
 
 ## 📌 Final Notes
 
@@ -155,3 +166,5 @@ This document is the primary reference for:
 - Development scope
 - Contract alignment
 - Milestone acceptance
+- Changes made without written approval may be rejected and are not considered billable.
+
