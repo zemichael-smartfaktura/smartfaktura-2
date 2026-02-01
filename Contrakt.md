@@ -24,8 +24,18 @@ Bergen, Norway
 - Contract signed: No
 - Contract effective date: Not yet effective
 
-The contract will be updated in this repository after signing.
----
+The contract will be updated in this repository after signing
+
+## Compensation & Hourly Rate
+
+The Developer shall be compensated on a time-based (hourly) basis.
+
+- The hourly rate is agreed separately between the parties and may be adjusted by mutual written agreement.
+- The Developer shall report worked hours on a regular basis (weekly or bi-weekly).
+- Only hours worked within the agreed scope, as defined in this repository, are billable.
+- Work performed outside the agreed scope requires prior written approval to be billable.
+
+
 
 ## Scope of Work
 
