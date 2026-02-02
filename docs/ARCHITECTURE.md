@@ -18,6 +18,7 @@ What we use, why, and what we did not choose. No deployment or platform details�
 | PDF (invoices) | pdf-lib or PDFKit | latest | Pure JS; runs on Bun. |
 | Email | Resend (or nodemailer) | latest | Transactional email; works on Bun. |
 | API client | TanStack Query | v5 | Server state, caching. |
+| Styling | Tailwind CSS + shadcn/ui | latest | Utility-first CSS; accessible, customizable components. |
 | i18n (later) | react-i18next | v14+ | Not in MVP. |
 
 JS/TS across backend and frontend; shared types in the monorepo.
@@ -54,6 +55,8 @@ We chose Bun for a single toolchain and speed. No rollback to Node.
 **Email** — Resend or nodemailer; both work on Bun. We use Resend (or its SMTP) for sending.
 
 **TanStack Query** — Server state and caching for REST APIs; no Redux/Zustand for API data.
+
+**Tailwind CSS + shadcn/ui** — Tailwind for utility-first styling and layout; shadcn/ui for accessible, copy-paste React components (buttons, forms, dialogs, etc.) that we own and can theme. No heavy component library; components live in the repo and match our design.
 
 ---
 
