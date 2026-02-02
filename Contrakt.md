@@ -12,19 +12,20 @@ Org. No: 936 587 720
 Follesevegen 103  
 Bergen, Norway
 
-**Developer**  
-[Developer Name / Company]  
-[Country]
+Developer
+Noor Ul Islam Huzaifa  
+Pakistan  
+Engaged via Upwork (Hourly Contract)
+
 
 ---
 
-## Contract Status
+Contract Status
 
-- Contract type: Hourly-based software development agreement
-- Contract signed: No
-- Contract effective date: Not yet effective
-
-The contract will be updated in this repository after signing
+• Contract type: Hourly software development agreement  
+• Contract signed: Yes (via Upwork)  
+• Contract effective date: 2026-02-02  
+• Contract duration: 8 weeks (ending 2026-03-30)
 
 ## Compensation & Hourly Rate
 
@@ -90,5 +91,6 @@ Unapproved changes are not considered billable.
 
 ## Notes
 
-This file is a **reference document only**.  
-In case of conflict, the signed contract document prevails.
+This document is a technical and scope reference only.
+The legally binding agreement is the active Upwork contract between the parties.
+In case of conflict, the Upwork contract prevails.
