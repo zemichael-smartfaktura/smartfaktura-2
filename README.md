@@ -108,6 +108,28 @@ Any feature not explicitly listed as **In Scope** is considered **Out of Scope**
 
 ---
 
+## 🚀 Running the app
+
+**Prerequisites:** Node.js ≥ 20, [Bun](https://bun.sh) (recommended) or npm.
+
+```bash
+bun install
+bun run dev
+```
+
+| Command           | Description              |
+|-------------------|--------------------------|
+| `bun run dev`     | Backend + frontend       |
+| `bun run dev:api` | Backend only             |
+| `bun run dev:app` | Frontend only            |
+| `bun run build`   | Build all                |
+| `bun run lint`    | Lint all                 |
+| `bun run test`    | Run tests                |
+
+To run one app from its own directory: `apps/backend/README.md` · `apps/frontend/README.md`
+
+---
+
 ## 🧱 Technical Principles
 
 - Clean, maintainable codebase
@@ -142,8 +164,7 @@ These are **not part of SmartFaktura 1**.
 - `main` branch is protected
 - All changes must go through Pull Requests
 
-See `docs/ACCESS_POLICY.md` for details
-
+See `docs/ACCESS_POLICY.md` for details.
 
 ### Contractual Scope Lock
 
@@ -154,8 +175,6 @@ The developer may not modify, remove, or add functionality, requirements, timeli
 Any work outside the defined scope requires a separate written agreement and may affect timeline and budget.
 
 This repository and its contents serve as the primary contractual reference for development scope and milestone acceptance.
-
-
 
 ## 📌 Final Notes
 
