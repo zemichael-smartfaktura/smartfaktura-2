@@ -1,0 +1,22 @@
+{
+  "name": "@smartfaktura/backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun",
+    "dev": "bun run --watch ./src/index.ts",
+    "start": "bun run ./dist/index.js",
+    "lint": "echo 'Lint backend (add ESLint later)'",
+    "test": "echo 'Tests (add later)'"
+  },
+  "dependencies": {
+    "@smartfaktura/shared-types": "workspace:*",
+    "express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^5.0.0",
+    "typescript": "^5.7.0"
+  }
+}
