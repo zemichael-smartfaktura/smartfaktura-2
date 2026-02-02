@@ -1,10 +1,10 @@
 # SmartFaktura 1 – Architecture
 
-What we use, why, and what we did not choose. No deployment or platform details—those are in [INFRASTRUCTURE.md](INFRASTRUCTURE.md). Aligned with [README.md](../README.md) and [MILESTONES_MVP.md](MILESTONES_MVP.md).
+**Status: finalized.** The stack below is the approved architecture. No deployment or platform details—those are in [INFRASTRUCTURE.md](INFRASTRUCTURE.md). Aligned with [README.md](../README.md) and [MILESTONES_MVP.md](MILESTONES_MVP.md).
 
 ---
 
-## 1. Stack overview
+## 1. Finalized stack overview
 
 | Layer | Technology | Version | Purpose |
 |-------|------------|---------|---------|
@@ -25,7 +25,7 @@ JS/TS across backend and frontend; shared types in the monorepo.
 
 ---
 
-## 2. Why Bun over Node.js
+## 2. Rationale: Bun over Node.js
 
 | Aspect | Bun | Node.js |
 |--------|-----|---------|
@@ -38,7 +38,7 @@ We chose Bun for a single toolchain and speed. No rollback to Node.
 
 ---
 
-## 3. Why these technologies
+## 3. Rationale: chosen technologies
 
 **Turborepo** — One repo (`apps/backend`, `apps/frontend`, `packages/*`); cached builds; approved.
 
@@ -84,9 +84,9 @@ Out of scope: Stripe, country-specific tax, accounting integrations—architectu
 
 ---
 
-## 6. Alternatives we did not choose
+## 6. Alternatives (reference only)
 
-Below are alternatives we considered and why we did not use them. This section is the single place for “why not” detail.
+The following options were considered and not chosen. Kept here for context and future reference only; they do not affect the finalized stack above.
 
 ### Node.js
 
