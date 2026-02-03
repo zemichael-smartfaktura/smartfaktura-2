@@ -1,0 +1,27 @@
+{
+  "name": "@smartfaktura/frontend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun run env:validate && vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "lint": "bunx tsc --noEmit",
+    "test": "echo 'No tests'",
+    "env:validate": "bun run ./scripts/env-validate.ts"
+  },
+  "dependencies": {
+    "@smartfaktura/shared-types": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
+  }
+}

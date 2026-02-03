@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+
+# Turborepo
+.turbo
+
+# Build outputs
+dist
+*.local
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs and coverage
+*.log
+coverage
+
+# OS and editor
+.DS_Store
+.cursor
+
+# Project-specific
+*.txt
+.cursor
+questions.md
+issues.md

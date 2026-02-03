@@ -1,11 +1,31 @@
 {
-  "name": "smartfaktura-backend",
-  "version": "0.1.0",
-  "type": "module",
+  "name": "smartfaktura",
+  "private": true,
+  "packageManager": "bun@1.2.0",
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "dev": "node src/app.js"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:api": "turbo run dev --filter=@smartfaktura/backend",
+    "dev:app": "turbo run dev --filter=@smartfaktura/frontend",
+    "lint": "turbo run lint && bun run lint:biome",
+    "lint:biome": "biome check .",
+    "test": "turbo run test",
+    "clean": "turbo run clean --force && rm -rf node_modules",
+    "prepare": "husky"
   },
-  "dependencies": {
-    "express": "^4.19.2"
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "turbo": "^2.3.0"
+  },
+  "engines": {
+    "bun": "1"
+  },
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
   }
 }
