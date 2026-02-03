@@ -110,7 +110,7 @@ Any feature not explicitly listed as **In Scope** is considered **Out of Scope**
 
 ## 🚀 Running the app
 
-**Prerequisites:** Node.js ≥ 20, [Bun](https://bun.sh) (recommended) or npm.
+**Prerequisites:** Node.js ≥ 20, [Bun](https://bun.sh). This project uses **Bun only** for tooling (e.g. `bunx`, not `npx`).
 
 ```bash
 bun install
@@ -132,6 +132,7 @@ To run one app from its own directory: `apps/backend/README.md` · `apps/fronten
 
 ## 🧱 Technical Principles
 
+- **Bun only:** Use Bun for all tooling—`bun run`, `bunx` (not npx), `bun install`. No npm/yarn/pnpm in scripts or docs.
 - Clean, maintainable codebase
 - Full code ownership by SmartFaktura
 - No vendor lock-in
