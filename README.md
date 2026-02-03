@@ -128,6 +128,8 @@ bun run dev
 
 To run one app from its own directory: `apps/backend/README.md` · `apps/frontend/README.md`
 
+**Vercel:** Set the project **Root Directory** to `apps/frontend` (Settings → General). The repo includes `apps/frontend/vercel.json` so the build and output are configured for that root.
+
 ---
 
 ## 🧱 Technical Principles
