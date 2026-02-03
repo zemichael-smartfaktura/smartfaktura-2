@@ -30,3 +30,8 @@ jobs:
 
       - name: Build backend
         run: bun run build -- --filter=@smartfaktura/backend
+
+      - name: Build frontend
+        env:
+          VITE_API_URL: https://api.example.com
+        run: bun run build -- --filter=@smartfaktura/frontend

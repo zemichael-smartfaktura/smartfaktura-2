@@ -8,7 +8,6 @@ Multi-tenant SaaS invoicing platform.
 
 ## Prerequisites
 
-- **Node.js** ≥ 20
 - **Bun** — all tooling (`bun run`, `bunx`, `bun install`). Do not use npm/yarn/pnpm.
 
 ---
