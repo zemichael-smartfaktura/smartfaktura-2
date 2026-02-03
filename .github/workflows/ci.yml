@@ -34,6 +34,9 @@ jobs:
       - name: Generate migrations
         run: cd apps/backend && bun run db:generate
 
+      - name: Check migrations in sync
+        run: test -z "$(git status --porcelain apps/backend/drizzle/)"
+
       - name: Build frontend
         env:
           VITE_API_URL: https://api.example.com
