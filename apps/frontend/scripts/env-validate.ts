@@ -1,8 +1,6 @@
 /// <reference types="node" />
-import { z } from "zod";
+import { frontendEnvSchema } from "@smartfaktura/shared-types";
 
-z.object({
-  VITE_API_URL: z.url(),
-}).parse({
+frontendEnvSchema.parse({
   VITE_API_URL: process.env.VITE_API_URL,
 });

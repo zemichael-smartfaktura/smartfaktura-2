@@ -1,12 +1,6 @@
-import { z } from "zod";
+import { frontendEnvSchema } from "@smartfaktura/shared-types";
 
-const schema = z.object({
-  VITE_API_URL: z.string().url(),
-});
-
-export type Env = z.infer<typeof schema>;
-
-export const env = schema.parse({
+export const env = frontendEnvSchema.parse({
   VITE_API_URL: import.meta.env.VITE_API_URL,
 });
 
