@@ -1,192 +1,69 @@
-# SmartFaktura 1 – MVP
+# SmartFaktura
 
-SmartFaktura is a modern, multi-tenant SaaS invoicing platform.
-This repository contains the codebase and documentation for **SmartFaktura 1 (MVP)**.
+Multi-tenant SaaS invoicing platform.
 
----
-
-## 🎯 Purpose of SmartFaktura 1
-
-SmartFaktura 1 is a **strictly scoped MVP** designed to:
-- Validate core invoicing workflows
-- Establish a scalable technical foundation
-- Prepare for future EU and international expansion
-
-The MVP prioritizes **functionality, stability, and clarity** over advanced features or complex compliance.
+**Stack:** React + Vite (frontend), Express on Bun (backend), shared types. Monorepo with Turborepo.
 
 ---
 
-## ⏱ Timeline
+## Prerequisites
 
-- **Fixed timeline:** 2 months (8 weeks)
-- Development follows a **week-by-week milestone plan**
-- Any functionality that cannot be delivered within this timeframe is considered **out of scope**
-
----
-
-## 💰 Budget
-
-- Fixed total budget (as agreed separately via contract)
-- No open-ended or undefined work
-- Any work outside scope requires a **separate agreement**
+- **Node.js** ≥ 20  
+- **Bun** — used for all tooling (`bun run`, `bunx`, `bun install`). Do not use npm/yarn/pnpm.
 
 ---
 
-## 👤 Target Users
-
-SmartFaktura 1 is designed for:
-- Small and medium-sized businesses (SMBs)
-- Freelancers and independent professionals
-- Small IT and service companies
-
-Primary early focus:
-- EU-ready architecture
-- Initial launch markets may include selected African countries
-
----
-
-## ✅ In Scope (SmartFaktura 1)
-
-The MVP includes the following core features:
-
-### Core
-- User authentication (email + password)
-- Organization / company setup
-- Multi-tenant architecture (one system, multiple companies)
-- Role-based access (basic)
-
-### Invoicing
-- Create, edit, and manage invoices
-- Manual VAT/tax rate per invoice line or invoice
-- PDF invoice generation
-- Invoice numbering
-- Invoice status tracking (draft / sent / paid)
-
-### Customers
-- Add and manage customers
-- Customer details: name, email, address, country
-
-### System
-- English language only
-- Prepared for i18n (no multi-language UI in MVP)
-- Prepared for future multi-country tax logic
-- Basic auditability (timestamps, ownership)
-
----
-
-## ❌ Out of Scope (Explicitly Excluded)
-
-The following are **not included** in SmartFaktura 1:
-
-- Country-specific VAT or tax rules
-- Automated tax calculations per country
-- Accounting integrations
-- Payment gateways (Stripe, PayPal, etc.)
-- Bank integrations
-- Advanced reporting or analytics
-- Multi-language UI
-- Mobile applications
-- Marketplace, plugins, or add-ons
-- Pixel-perfect or final UI/UX design
-- Regulatory compliance beyond basic invoicing logic
-
-Any feature not explicitly listed as **In Scope** is considered **Out of Scope**.
-
----
-
-## 🎨 UI / UX Scope
-
-- No final wireframes are provided at project start
-- Early phase focuses on:
-  - Aligning user flows
-  - Delivering a simple, functional UI
-- Design priority:
-  - Clarity
-  - Usability
-  - Speed of implementation
-- Visual polish and advanced design are deferred to later versions
-
----
-
-## 🚀 Running the app
-
-**Prerequisites:** Node.js ≥ 20, [Bun](https://bun.sh). This project uses **Bun only** for tooling (e.g. `bunx`, not `npx`).
+## Quick start
 
 ```bash
 bun install
 bun run dev
 ```
 
-| Command           | Description              |
-|-------------------|--------------------------|
-| `bun run dev`     | Backend + frontend       |
-| `bun run dev:api` | Backend only             |
-| `bun run dev:app` | Frontend only            |
-| `bun run build`   | Build all                |
-| `bun run lint`    | Lint all                 |
-| `bun run test`    | Run tests                |
+Runs backend and frontend together. Backend: <http://localhost:3001>. Frontend: <http://localhost:5173>.
 
-To run one app from its own directory: `apps/backend/README.md` · `apps/frontend/README.md`
+### Commands
 
-**Vercel:** Set the project **Root Directory** to `apps/frontend` (Settings → General). The repo includes `apps/frontend/vercel.json` so the build and output are configured for that root.
+| Command           | Description        |
+| ----------------- | ------------------ |
+| `bun run dev`     | Backend + frontend |
+| `bun run dev:api` | Backend only       |
+| `bun run dev:app` | Frontend only      |
+| `bun run build`   | Build all          |
+| `bun run lint`    | Lint all           |
+| `bun run test`    | Run tests          |
 
----
-
-## 🧱 Technical Principles
-
-- **Bun only:** Use Bun for all tooling—`bun run`, `bunx` (not npx), `bun install`. No npm/yarn/pnpm in scripts or docs.
-- Clean, maintainable codebase
-- Full code ownership by SmartFaktura
-- No vendor lock-in
-- Scalable architecture suitable for future expansion
-- All development tracked via GitHub
+More detail per app: **`apps/backend/README.md`** · **`apps/frontend/README.md`**
 
 ---
 
-## 🌱 Future Versions (Not MVP)
+## Environment
 
-The following are planned for later versions:
-- Country-specific tax engines
-- EU VAT compliance automation
-- Multi-language UI
-- Payments and accounting integrations
-- Advanced roles and permissions
-- Public API and integrations
+Copy each app’s **`.env.example`** to **`.env`** and set values as needed.
 
-These are **not part of SmartFaktura 1**.
+- **Backend:** `apps/backend/.env.example`  
+- **Frontend:** `apps/frontend/.env.example`
 
 ---
 
-## 🔒 Access & Development Rules
+## Deployment
 
-- All external developers start with **Read-only access**
-- Write access is granted only after:
-  - Contract signing
-  - Scope lock
-  - Milestone approval
-- `main` branch is protected
-- All changes must go through Pull Requests
+| Layer     | Where                          |
+| --------- | ------------------------------ |
+| **Frontend** | Vercel                         |
+| **API & DB** | See `docs/INFRASTRUCTURE.md`   |
 
-See `docs/ACCESS_POLICY.md` for details.
+**Vercel:** Deploy from repo root (root `vercel.json` builds the frontend). Or set **Root Directory** to `apps/frontend`. Set `VITE_API_URL` in Vercel → Settings → Environment Variables for production.
 
-### Contractual Scope Lock
+---
 
-This repository, including all issues, milestones, and documentation, represents the agreed and locked scope for SmartFaktura 1 (MVP).
+## Documentation
 
-The developer may not modify, remove, or add functionality, requirements, timelines, or scope definitions without prior written approval from the project owner.
+All architecture, scope, and infrastructure docs live in **`docs/`**:
 
-Any work outside the defined scope requires a separate written agreement and may affect timeline and budget.
-
-This repository and its contents serve as the primary contractual reference for development scope and milestone acceptance.
-
-## 📌 Final Notes
-
-This README represents the **locked scope** for SmartFaktura 1 (MVP).
-Any changes, additions, or extensions require written approval and may impact timeline and budget.
-
-This document is the primary reference for:
-- Development scope
-- Contract alignment
-- Milestone acceptance
-- Changes made without written approval may be rejected and are not considered billable.
-
+- `docs/ARCHITECTURE.md` — stack and structure  
+- `docs/INFRASTRUCTURE.md` — deployment and hosting  
+- `docs/MILESTONES_MVP.md` — MVP scope and milestones  
+- `docs/AUTH.md` — authentication  
+- `docs/DATABASE.md` — database schema  
+- `docs/ACCESS_POLICY.md` — access and development rules  
