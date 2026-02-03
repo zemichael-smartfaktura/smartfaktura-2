@@ -10,8 +10,8 @@
   },
   "scripts": {
     "build": "echo 'No build step for types package'",
-    "lint": "echo 'Lint types (optional)'",
-    "test": "echo 'No tests for types package'"
+    "lint": "bunx tsc --noEmit",
+    "test": "echo 'No tests'"
   },
   "devDependencies": {
     "typescript": "^5.7.0"

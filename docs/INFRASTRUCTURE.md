@@ -66,7 +66,21 @@ Not required for recommended setup (Vercel + Render or DO). Build from Git; plat
 
 ---
 
-## 4. CI and Week 1
+## 4. Environment variables (no values in repo)
+
+Env and secrets are **never** committed. Each environment gets vars from its platform only.
+
+| Where | Source | What to set |
+|-------|--------|-------------|
+| **Local** | `.env.development` and `.env.production` (gitignored). Copy from `.env.example`, fill real values. Backend loads `.env` then `.env.${NODE_ENV}` (default development). | Backend: `apps/backend/.env.example`. Frontend: `apps/frontend/.env.example`. |
+| **Production** | Platform dashboard only. | **Vercel:** Settings → Environment Variables (e.g. `VITE_API_URL`). **Render:** Service → Environment (e.g. `PORT`). Add DB/auth vars when those are in the codebase. |
+| **CI** | GitHub Actions repository variables. | Repo → Settings → Secrets and variables → Actions → **Variables**. Add the same names as in `.env.example` with **mock** values (for validate + build only). CI does not use real secrets. |
+
+This matches how larger apps operate: one source of truth per platform (GitHub for CI, Vercel for frontend deploy, Render for API deploy), no env in the repo.
+
+---
+
+## 5. CI and Week 1
 
 - **Branch protection:** `main` protected; all changes via PRs. Document in repo.
 - **Deploy from Git:** Vercel + Render or DO build and deploy on push; no custom GitHub Actions.
@@ -75,7 +89,7 @@ Not required for recommended setup (Vercel + Render or DO). Build from Git; plat
 
 ---
 
-## 5. Summary
+## 6. Summary
 
 | Layer | Recommended | Alternatives |
 |-------|-------------|--------------|

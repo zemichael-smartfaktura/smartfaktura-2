@@ -4,18 +4,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "bun run env:validate && vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "lint": "echo 'Lint frontend (add ESLint later)'",
-    "test": "echo 'Tests (add later)'"
+    "lint": "bunx tsc --noEmit",
+    "test": "echo 'No tests'",
+    "env:validate": "bun run ./scripts/env-validate.ts"
   },
   "dependencies": {
     "@smartfaktura/shared-types": "workspace:*",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@types/node": "^25.2.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
