@@ -1,6 +1,6 @@
 import "./env-load";
-import express from "express";
 import type { HealthResponse } from "@smartfaktura/shared-types";
+import express from "express";
 import { env } from "./env";
 
 console.log("Env loaded:", { PORT: env.PORT });

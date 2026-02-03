@@ -7,7 +7,15 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
       "env": ["VITE_API_URL"],
-      "inputs": ["src/**", "package.json", "tsconfig.json", "vite.config.ts", "vite.config.*", "index.html", "*.config.ts"],
+      "inputs": [
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "vite.config.ts",
+        "vite.config.*",
+        "index.html",
+        "*.config.ts"
+      ],
       "cache": true
     },
     "dev": {
