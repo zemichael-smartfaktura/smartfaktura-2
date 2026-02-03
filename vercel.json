@@ -1,0 +1,5 @@
+{
+  "buildCommand": "bun run build --filter=@smartfaktura/frontend",
+  "outputDirectory": "apps/frontend/dist",
+  "installCommand": "bun install"
+}
