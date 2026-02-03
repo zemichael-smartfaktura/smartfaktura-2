@@ -12,8 +12,12 @@ bun install
 bun run dev
 ```
 
-| Command         | Description      |
-|-----------------|------------------|
-| `bun run dev`   | Dev (watch)      |
-| `bun run build` | Build to `dist/` |
-| `bun run start` | Run built output |
+| Command            | Description      |
+|--------------------|------------------|
+| `bun run dev`      | Dev (watch)      |
+| `bun run build`    | Build to `dist/` |
+| `bun run start`    | Run built output |
+| `bun run db:generate` | Generate migration SQL from schema |
+| `bun run db:migrate`   | Apply migrations (requires `DATABASE_URL`) |
+
+**Migrations:** App migrations live in `drizzle/`. Run `db:migrate` only when `DATABASE_URL` is set (e.g. from `.env.development`). Run app migrations **after** the better-auth schema has been applied (Week 2).
