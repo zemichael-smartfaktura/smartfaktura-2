@@ -1,2 +1,0 @@
-CREATE INDEX "customers_deleted_at_idx" ON "customers" USING btree ("deleted_at");--> statement-breakpoint
-CREATE INDEX "invoices_organization_id_invoice_date_idx" ON "invoices" USING btree ("organization_id","invoice_date");

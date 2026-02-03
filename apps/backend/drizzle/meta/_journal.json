@@ -6,21 +6,7 @@
       "idx": 0,
       "version": "7",
       "when": 1770151191593,
-      "tag": "0000_huge_the_renegades",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1770152358522,
-      "tag": "0001_brief_goblin_queen",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1770152777660,
-      "tag": "0002_amusing_siren",
+      "tag": "0000_initial",
       "breakpoints": true
     }
   ]

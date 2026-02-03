@@ -36,7 +36,7 @@ export const invoices = pgTable(
     organizationId: text("organization_id").notNull(),
     customerId: text("customer_id"),
     number: text("number").notNull(),
-    status: text("status").notNull(), // 'draft' | 'sent' | 'paid'
+    status: text("status").notNull(), // 'draft' | 'sent' | 'paid' | 'cancelled'
     currencyCode: text("currency_code").notNull().default("NOK"),
     invoiceDate: date("invoice_date").notNull(),
     dueDate: date("due_date"),
@@ -61,6 +61,7 @@ export const invoiceLineItems = pgTable(
   {
     id: text("id").primaryKey(),
     invoiceId: text("invoice_id").notNull(),
+    productId: text("product_id"), // optional: from product catalog (Week 4)
     description: text("description").notNull(),
     quantity: numeric("quantity", { precision: 14, scale: 4 }).notNull(),
     unitPrice: numeric("unit_price", { precision: 14, scale: 2 }).notNull(),
@@ -68,5 +69,45 @@ export const invoiceLineItems = pgTable(
     amount: numeric("amount", { precision: 14, scale: 2 }).notNull(),
     sortOrder: integer("sort_order"),
   },
-  (table) => [index("invoice_line_items_invoice_id_idx").on(table.invoiceId)],
+  (table) => [
+    index("invoice_line_items_invoice_id_idx").on(table.invoiceId),
+    index("invoice_line_items_product_id_idx").on(table.productId),
+  ],
+);
+
+export const products = pgTable(
+  "products",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id").notNull(),
+    name: text("name").notNull(),
+    description: text("description"),
+    unitPrice: numeric("unit_price", { precision: 14, scale: 2 }).notNull(),
+    vatRate: numeric("vat_rate", { precision: 5, scale: 2 }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+    deletedAt: timestamp("deleted_at", { withTimezone: true }),
+  },
+  (table) => [
+    index("products_organization_id_idx").on(table.organizationId),
+    index("products_deleted_at_idx").on(table.deletedAt),
+  ],
+);
+
+export const invoiceActivityLog = pgTable(
+  "invoice_activity_log",
+  {
+    id: text("id").primaryKey(),
+    invoiceId: text("invoice_id").notNull(),
+    organizationId: text("organization_id").notNull(),
+    action: text("action").notNull(), // 'created' | 'pdf_generated' | 'sent' | 'status_changed'
+    payload: text("payload"), // optional JSON: e.g. { oldStatus, newStatus }
+    performedBy: text("performed_by"),
+    performedAt: timestamp("performed_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    index("invoice_activity_log_invoice_id_idx").on(table.invoiceId),
+    index("invoice_activity_log_organization_id_idx").on(table.organizationId),
+    index("invoice_activity_log_performed_at_idx").on(table.performedAt),
+  ],
 );
