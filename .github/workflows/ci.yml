@@ -1,7 +1,5 @@
 name: CI
 
-# Set VITE_API_URL in repo Settings → Secrets and variables → Actions → Variables for this job to pass.
-
 on:
   pull_request:
   push:
@@ -19,13 +17,10 @@ jobs:
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: "1"
 
       - name: Install
         run: bun install --frozen-lockfile
-
-      - name: Validate frontend env
-        run: cd apps/frontend && bun run env:validate
 
       - name: Lint
         run: bun run lint
@@ -33,5 +28,5 @@ jobs:
       - name: Test
         run: bun run test
 
-      - name: Build (affected only)
-        run: bun run build -- --affected
+      - name: Build backend
+        run: bun run build -- --filter=@smartfaktura/backend

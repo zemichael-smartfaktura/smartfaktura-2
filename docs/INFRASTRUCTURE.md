@@ -2,7 +2,7 @@
 
 Where to deploy and what’s needed for Week 1 onward. Architecture is in [ARCHITECTURE.md](ARCHITECTURE.md). Aligned with [README.md](../README.md) and [MILESTONES_MVP.md](MILESTONES_MVP.md).
 
-**Recommended:** Frontend **Vercel**, API **Render** or **DigitalOcean**. Deploy from Git; no custom CI. Managed Postgres (Neon, Render, or DO). Docker optional.
+**Recommended:** Frontend **Vercel**, API **Render** or **DigitalOcean**. Deploy from Git. CI in GitHub Actions (backend + shared checks); frontend built by Vercel on push (see §5). Managed Postgres (Neon, Render, or DO). Docker optional.
 
 ---
 
@@ -80,10 +80,15 @@ This matches how larger apps operate: one source of truth per platform (GitHub f
 
 ---
 
-## 5. CI and Week 1
+## 5. CI and deploy
 
-- **Branch protection:** `main` protected; all changes via PRs. Document in repo.
-- **Deploy from Git:** Vercel + Render or DO build and deploy on push; no custom GitHub Actions.
+**CI** (`.github/workflows/ci.yml`) runs on every push and PR: install, lint, test, **backend build only**. It gates the backend and shared quality (lint/test); frontend is **not** built in CI.
+
+**Frontend:** Built only by Vercel on push. No frontend env or build in CI; no Deployment Checks needed. If the frontend build fails, Vercel shows it after push.
+
+**Backend:** CI runs `bun run build --filter=@smartfaktura/backend`. Use branch protection (require the `build` check) if you want to block merge until CI passes before deploying the API to Render or DO.
+
+- **Week 1:** CI as above; Vercel builds frontend on push.
 - **Week 2:** Confirm frontend (Vercel) and API (Render or DO). Platform access (Render/DO) before or at start of Week 2 to connect repo and wire deploy. Vercel already connected.
 - **Week 2–8:** Deploy on push. Frontend and API deploy independently. Env and secrets in each platform’s dashboard; no secrets in repo.
 

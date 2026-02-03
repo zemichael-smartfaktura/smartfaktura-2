@@ -21,7 +21,7 @@
     "turbo": "^2.3.0"
   },
   "engines": {
-    "node": ">=20"
+    "bun": "1"
   },
   "lint-staged": {
     "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
