@@ -3,11 +3,26 @@ import {
   index,
   integer,
   numeric,
+  pgEnum,
   pgTable,
   text,
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
+
+// Invoice lifecycle: draft → sent → paid (or cancelled)
+export const invoiceStatusEnum = pgEnum("invoice_status", ["draft", "sent", "paid", "cancelled"]);
+
+// Activity log actions for audit trail
+export const invoiceActivityActionEnum = pgEnum("invoice_activity_action", [
+  "created",
+  "pdf_generated",
+  "sent",
+  "status_changed",
+]);
+
+export type InvoiceStatus = (typeof invoiceStatusEnum.enumValues)[number];
+export type InvoiceActivityAction = (typeof invoiceActivityActionEnum.enumValues)[number];
 
 export const customers = pgTable(
   "customers",
@@ -36,7 +51,7 @@ export const invoices = pgTable(
     organizationId: text("organization_id").notNull(),
     customerId: text("customer_id"),
     number: text("number").notNull(),
-    status: text("status").notNull(), // 'draft' | 'sent' | 'paid' | 'cancelled'
+    status: invoiceStatusEnum("status").notNull(),
     currencyCode: text("currency_code").notNull().default("NOK"),
     invoiceDate: date("invoice_date").notNull(),
     dueDate: date("due_date"),
@@ -100,7 +115,7 @@ export const invoiceActivityLog = pgTable(
     id: text("id").primaryKey(),
     invoiceId: text("invoice_id").notNull(),
     organizationId: text("organization_id").notNull(),
-    action: text("action").notNull(), // 'created' | 'pdf_generated' | 'sent' | 'status_changed'
+    action: invoiceActivityActionEnum("action").notNull(),
     payload: text("payload"), // optional JSON: e.g. { oldStatus, newStatus }
     performedBy: text("performed_by"),
     performedAt: timestamp("performed_at", { withTimezone: true }).notNull().defaultNow(),
