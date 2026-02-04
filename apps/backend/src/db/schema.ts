@@ -3,6 +3,7 @@ import {
   date,
   index,
   integer,
+  jsonb,
   numeric,
   pgEnum,
   pgPolicy,
@@ -145,7 +146,7 @@ export const invoiceActivityLog = pgTable(
     invoiceId: text("invoice_id").notNull(),
     organizationId: text("organization_id").notNull(),
     action: invoiceActivityActionEnum("action").notNull(),
-    payload: text("payload"), // optional JSON: e.g. { oldStatus, newStatus }
+    payload: jsonb("payload"), // optional JSON: e.g. { oldStatus, newStatus }
     performedBy: text("performed_by"),
     performedAt: timestamp("performed_at", { withTimezone: true }).notNull().defaultNow(),
   },
