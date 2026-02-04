@@ -1,15 +1,16 @@
+import { sql } from "drizzle-orm";
 import {
   date,
   index,
   integer,
   numeric,
   pgEnum,
+  pgPolicy,
   pgTable,
   text,
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
-
 // Invoice lifecycle: draft → sent → paid (or cancelled)
 export const invoiceStatusEnum = pgEnum("invoice_status", ["draft", "sent", "paid", "cancelled"]);
 
@@ -41,8 +42,15 @@ export const customers = pgTable(
     uniqueIndex("customers_organization_id_email_idx").on(table.organizationId, table.email),
     index("customers_organization_id_idx").on(table.organizationId),
     index("customers_deleted_at_idx").on(table.deletedAt),
+    pgPolicy("customers_org_isolation", {
+      as: "permissive",
+      to: "current_user",
+      for: "all",
+      using: sql`organization_id = current_setting('app.current_organization_id', true)`,
+      withCheck: sql`organization_id = current_setting('app.current_organization_id', true)`,
+    }),
   ],
-);
+).enableRLS();
 
 export const invoices = pgTable(
   "invoices",
@@ -68,8 +76,15 @@ export const invoices = pgTable(
     index("invoices_organization_id_status_idx").on(table.organizationId, table.status),
     index("invoices_customer_id_idx").on(table.customerId),
     index("invoices_organization_id_invoice_date_idx").on(table.organizationId, table.invoiceDate),
+    pgPolicy("invoices_org_isolation", {
+      as: "permissive",
+      to: "current_user",
+      for: "all",
+      using: sql`organization_id = current_setting('app.current_organization_id', true)`,
+      withCheck: sql`organization_id = current_setting('app.current_organization_id', true)`,
+    }),
   ],
-);
+).enableRLS();
 
 export const invoiceLineItems = pgTable(
   "invoice_line_items",
@@ -87,8 +102,15 @@ export const invoiceLineItems = pgTable(
   (table) => [
     index("invoice_line_items_invoice_id_idx").on(table.invoiceId),
     index("invoice_line_items_product_id_idx").on(table.productId),
+    pgPolicy("invoice_line_items_org_via_invoice", {
+      as: "permissive",
+      to: "current_user",
+      for: "all",
+      using: sql`invoice_id IN (SELECT id FROM invoices WHERE organization_id = current_setting('app.current_organization_id', true))`,
+      withCheck: sql`invoice_id IN (SELECT id FROM invoices WHERE organization_id = current_setting('app.current_organization_id', true))`,
+    }),
   ],
-);
+).enableRLS();
 
 export const products = pgTable(
   "products",
@@ -106,8 +128,15 @@ export const products = pgTable(
   (table) => [
     index("products_organization_id_idx").on(table.organizationId),
     index("products_deleted_at_idx").on(table.deletedAt),
+    pgPolicy("products_org_isolation", {
+      as: "permissive",
+      to: "current_user",
+      for: "all",
+      using: sql`organization_id = current_setting('app.current_organization_id', true)`,
+      withCheck: sql`organization_id = current_setting('app.current_organization_id', true)`,
+    }),
   ],
-);
+).enableRLS();
 
 export const invoiceActivityLog = pgTable(
   "invoice_activity_log",
@@ -124,5 +153,12 @@ export const invoiceActivityLog = pgTable(
     index("invoice_activity_log_invoice_id_idx").on(table.invoiceId),
     index("invoice_activity_log_organization_id_idx").on(table.organizationId),
     index("invoice_activity_log_performed_at_idx").on(table.performedAt),
+    pgPolicy("invoice_activity_log_org_isolation", {
+      as: "permissive",
+      to: "current_user",
+      for: "all",
+      using: sql`organization_id = current_setting('app.current_organization_id', true)`,
+      withCheck: sql`organization_id = current_setting('app.current_organization_id', true)`,
+    }),
   ],
-);
+).enableRLS();
