@@ -1,8 +1,10 @@
 # SmartFaktura 1 – Database schema (app)
 
-Aligned with [ARCHITECTURE.md](ARCHITECTURE.md) (Drizzle 0.45.x, PostgreSQL 15+) and agreed scope (single user per company, free-form invoice lines, one currency per company). This document defines **only the app-owned schema**: customers, invoices, invoice_line_items. Auth and tenant identity (user, session, organization, member) are managed by better-auth; see [auth.md](auth.md).
+Aligned with [ARCHITECTURE.md](ARCHITECTURE.md) (Drizzle 0.45.x, PostgreSQL 15+) and agreed scope (single user per company, free-form invoice lines, one currency per company). This document defines **only the app-owned schema**: customers, invoices, invoice_line_items (plus products and invoice_activity_log in the implementation). Auth and tenant identity (user, session, organization, member) are managed by better-auth; see [AUTH.md](AUTH.md).
 
-**Related documents:** [ARCHITECTURE.md](ARCHITECTURE.md) (stack), [auth.md](auth.md) (tenant, session), [MILESTONES_MVP.md](MILESTONES_MVP.md) (scope).
+**Related documents:** [ARCHITECTURE.md](ARCHITECTURE.md) (stack), [AUTH.md](AUTH.md) (tenant, session), [MILESTONES_MVP.md](MILESTONES_MVP.md) (scope).
+
+**Local development:** To run the app locally you need a Postgres database and **`DATABASE_URL`** set in `apps/backend/.env.development`. From the repo root: `bun run db:migrate` to apply migrations, and optionally `bun run db:studio` to open Drizzle Studio. See the root [README](../README.md) and [apps/backend/README](../apps/backend/README.md) for full setup.
 
 ---
 

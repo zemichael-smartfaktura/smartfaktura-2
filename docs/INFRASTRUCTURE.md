@@ -82,9 +82,9 @@ This matches how larger apps operate: one source of truth per platform (GitHub f
 
 ## 5. CI and deploy
 
-**CI** (`.github/workflows/ci.yml`) runs on every push and PR: install, lint, test, **backend build only**. It gates the backend and shared quality (lint/test); frontend is **not** built in CI.
+**CI** (`.github/workflows/ci.yml`) runs on every push and PR: install, lint, test, **backend build**, and **frontend build** (with a placeholder `VITE_API_URL`). It gates both apps and shared quality (lint/test).
 
-**Frontend:** Built only by Vercel on push. No frontend env or build in CI; no Deployment Checks needed. If the frontend build fails, Vercel shows it after push.
+**Frontend:** CI builds the frontend; Vercel also builds on push. If the frontend build fails, CI and/or Vercel will show it.
 
 **Backend:** CI runs `bun run build --filter=@smartfaktura/backend`. Use branch protection (require the `build` check) if you want to block merge until CI passes before deploying the API to Render or DO.
 
