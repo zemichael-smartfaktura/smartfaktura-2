@@ -1,8 +1,10 @@
 # SmartFaktura 1 – Database schema (app)
 
-Aligned with [ARCHITECTURE.md](ARCHITECTURE.md) (Drizzle 0.45.x, PostgreSQL 15+) and agreed scope (single user per company, free-form invoice lines, one currency per company). This document defines **only the app-owned schema**: customers, invoices, invoice_line_items. Auth and tenant identity (user, session, organization, member) are managed by better-auth; see [auth.md](auth.md).
+Aligned with [ARCHITECTURE.md](ARCHITECTURE.md) (Drizzle 0.45.x, PostgreSQL 15+) and agreed scope (single user per company, free-form invoice lines, one currency per company). This document defines **only the app-owned schema**: customers, invoices, invoice_line_items (plus products and invoice_activity_log in the implementation). Auth and tenant identity (user, session, organization, member) are managed by better-auth; see [AUTH.md](AUTH.md).
 
-**Related documents:** [ARCHITECTURE.md](ARCHITECTURE.md) (stack), [auth.md](auth.md) (tenant, session), [MILESTONES_MVP.md](MILESTONES_MVP.md) (scope).
+**Related documents:** [ARCHITECTURE.md](ARCHITECTURE.md) (stack), [AUTH.md](AUTH.md) (tenant, session), [MILESTONES_MVP.md](MILESTONES_MVP.md) (scope).
+
+**Local development:** To run the app locally you need a Postgres database and **`DATABASE_URL`** set in `apps/backend/.env.development`. From the repo root: `bun run db:migrate` to apply migrations, and optionally `bun run db:studio` to open Drizzle Studio. See the root [README](../README.md) and [apps/backend/README](../apps/backend/README.md) for full setup.
 
 ---
 
@@ -215,18 +217,20 @@ erDiagram
 
 ## 5. Indexes (app tables)
 
+This is the full MVP index set. Schema and migrations implement this from the start; no indexes are deferred.
+
 | Table | Index | Type | Purpose |
 |-------|--------|------|---------|
 | customers | (id) | PK | Primary key |
 | customers | (organizationId) | Index | Tenant isolation, list |
-| customers | (organizationId, email) | Optional UNIQUE | Unique email per tenant |
-| customers | (deletedAt) | Index | Filter active customers |
+| customers | (organizationId, email) | UNIQUE | Unique email per tenant |
+| customers | (deletedAt) | Index | Filter active customers (WHERE deletedAt IS NULL) |
 | invoices | (id) | PK | Primary key |
 | invoices | (organizationId) | Index | Tenant isolation, list |
-| invoices | (organizationId, status) | Index | Filter by status |
+| invoices | (organizationId, status) | Index | Filter by status (draft / sent / paid) |
 | invoices | (organizationId, number) | UNIQUE | Sequential number per org |
 | invoices | (customerId) | Index | List invoices by customer |
-| invoices | (organizationId, invoiceDate) | Optional | Date range filter |
+| invoices | (organizationId, invoiceDate) | Index | Date range filter |
 | invoice_line_items | (id) | PK | Primary key |
 | invoice_line_items | (invoiceId) | Index | List lines per invoice |
 
@@ -234,10 +238,12 @@ erDiagram
 
 ## 6. Constraints
 
+Full MVP set. Indexes and app tables are in schema/migrations from the start; FKs to auth tables are added once better-auth schema exists (Week 2).
+
 - **Tenant isolation:** Resolve `session.activeOrganizationId` for every request; filter customers and invoices by `organizationId`. Reject if no active org.
 - **Soft delete (customers):** List and get filter `WHERE deletedAt IS NULL` unless loading deleted (e.g. export). No extra schema for export/delete-account.
-- **Uniques:** (organizationId, number) on invoices. Optional: (organizationId, email) on customers per tenant.
-- **ON DELETE:** Cascade for invoice_line_items → invoice; restrict or set null for invoice → customer and invoice → user as needed.
+- **Uniques:** (organizationId, number) on invoices; (organizationId, email) on customers.
+- **FKs and ON DELETE (when auth exists):** invoice_line_items.invoiceId → invoices.id ON DELETE CASCADE; invoice.customerId → customers.id (restrict or set null); invoice.organizationId → organization.id; invoice.createdBy/updatedBy → user.id; customers.organizationId → organization.id.
 
 ---
 
