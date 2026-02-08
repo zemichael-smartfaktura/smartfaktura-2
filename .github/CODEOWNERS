@@ -1,0 +1,14 @@
+# Alt
+* @zemichael-smartfaktura
+.github/CODEOWNERS @zemichael-smartfaktura
+
+
+# Dependabot og sikkerhet
+.github/dependabot.yml @zemichael-smartfaktura
+.github/workflows/* @zemichael-smartfaktura
+
+# Frontend
+/frontend/** @zemichael-smartfaktura
+
+# Backend
+/backend/** @zemichael-smartfaktura
