@@ -1,6 +1,12 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { organization } from "better-auth/plugins";
+/**
+ * Better-auth config: email+password, Organization plugin (tenant = org).
+ * MVP scope: one org per user, creator role owner, no Teams/Admin/OAuth/invite flow.
+ * Backend-only; do not add plugins or auth methods without product scope.
+ */
+import { eq } from "drizzle-orm";
 import { db } from "./db";
 import * as schema from "./db/schema";
 import { env } from "./env";
@@ -28,6 +34,13 @@ export const auth = betterAuth({
     organization({
       creatorRole: "owner",
       organizationLimit: 1,
+      schema: {
+        organization: {
+          additionalFields: {
+            currencyCode: { type: "string", required: false, defaultValue: "NOK" },
+          },
+        },
+      },
     }),
   ],
   user: {
@@ -36,12 +49,43 @@ export const auth = betterAuth({
       consentGivenAt: { type: "date", required: false },
     },
   },
-  organization: {
-    additionalFields: {
-      currencyCode: { type: "string", required: false, defaultValue: "NOK" },
-    },
-  },
   experimental: {
     joins: false,
+  },
+  advanced: {
+    defaultCookieAttributes: {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: env.BETTER_AUTH_URL.startsWith("https://"),
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await auth.api.createOrganization({
+            body: {
+              name: "My Company",
+              slug: `org-${user.id}`,
+              userId: user.id,
+            },
+          });
+        },
+      },
+    },
+    session: {
+      create: {
+        before: async (session) => {
+          const members = await db
+            .select({ organizationId: schema.member.organizationId })
+            .from(schema.member)
+            .where(eq(schema.member.userId, session.userId));
+          if (members.length === 1) {
+            return { data: { ...session, activeOrganizationId: members[0].organizationId } };
+          }
+          return { data: session };
+        },
+      },
+    },
   },
 });
