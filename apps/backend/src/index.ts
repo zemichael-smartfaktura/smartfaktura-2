@@ -1,15 +1,14 @@
 /**
- * Express app: health, Better Auth mount, protected routes (session + tenant).
+ * Express app: CORS, Better Auth, public/protected routes, 404, error handler.
  */
 import "./env-load";
-import type { HealthResponse } from "@smartfaktura/shared-types";
 import { toNodeHandler } from "better-auth/node";
 import cors from "cors";
 import express, { type NextFunction, type Request, type Response } from "express";
 import { auth } from "./auth";
 import { pool } from "./db/client";
 import { env } from "./env";
-import { protectedChain } from "./middleware";
+import { registerRoutes } from "./routes";
 
 const app = express();
 
@@ -25,21 +24,7 @@ app.use("/auth", (req, res) => toNodeHandler(auth)(req, res));
 
 app.use(express.json());
 
-app.get("/health", (_req, res) => {
-  const body: HealthResponse = { status: "SmartFaktura backend is alive", env: "valid" };
-  res.json(body);
-});
-
-app.get("/me", ...protectedChain, (req, res) => {
-  res.json({
-    user: req.user,
-    session: { activeOrganizationId: req.activeOrganizationId },
-  });
-});
-
-app.get("/tenant-context", ...protectedChain, (req, res) => {
-  res.json({ organizationId: req.activeOrganizationId });
-});
+registerRoutes(app);
 
 // 404 handler — must be after all routes
 app.use((_req: Request, res: Response) => {
