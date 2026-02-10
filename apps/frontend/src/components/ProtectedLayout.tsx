@@ -13,7 +13,7 @@ export default function ProtectedLayout() {
     }
   }, [session, isPending, navigate]);
 
-  if (isPending) return <div style={{ padding: "2rem" }}>Loading…</div>;
+  if (isPending) return <div className="p-8">Loading…</div>;
   if (!session?.user) return null;
 
   return <Outlet />;

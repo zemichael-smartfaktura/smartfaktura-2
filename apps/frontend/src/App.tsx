@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import ProtectedLayout from "./components/ProtectedLayout";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
@@ -13,6 +13,7 @@ export default function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

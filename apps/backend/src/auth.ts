@@ -49,39 +49,37 @@ export const auth = betterAuth({
       consentGivenAt: { type: "date", required: false },
     },
   },
-  experimental: {
-    joins: false,
-  },
-  advanced: {
-    defaultCookieAttributes: {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: env.BETTER_AUTH_URL.startsWith("https://"),
-    },
-  },
   databaseHooks: {
     user: {
       create: {
         after: async (user) => {
-          await auth.api.createOrganization({
-            body: {
-              name: "My Company",
-              slug: `org-${user.id}`,
-              userId: user.id,
-            },
-          });
+          try {
+            await auth.api.createOrganization({
+              body: {
+                name: "My Company",
+                slug: `org-${user.id}`,
+                userId: user.id,
+              },
+            });
+          } catch (err) {
+            console.error("[AUTH] Failed to create default organization for user", user.id, err);
+          }
         },
       },
     },
     session: {
       create: {
         before: async (session) => {
-          const members = await db
-            .select({ organizationId: schema.member.organizationId })
-            .from(schema.member)
-            .where(eq(schema.member.userId, session.userId));
-          if (members.length === 1) {
-            return { data: { ...session, activeOrganizationId: members[0].organizationId } };
+          try {
+            const members = await db
+              .select({ organizationId: schema.member.organizationId })
+              .from(schema.member)
+              .where(eq(schema.member.userId, session.userId));
+            if (members.length === 1) {
+              return { data: { ...session, activeOrganizationId: members[0].organizationId } };
+            }
+          } catch (err) {
+            console.error("[AUTH] Failed to resolve active organization for session", err);
           }
           return { data: session };
         },

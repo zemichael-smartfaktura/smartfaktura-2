@@ -11,7 +11,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div style={{ padding: "1rem 2rem" }}>
+    <div className="px-8 py-4">
       <h1>Dashboard</h1>
       {session?.user && (
         <p>

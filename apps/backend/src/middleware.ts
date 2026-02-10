@@ -1,11 +1,6 @@
-/**
- * Session, auth, tenant and DB tenant-context middleware.
- * Use protectedChain for any route that needs a logged-in user with an active organization.
- */
 import { fromNodeHeaders } from "better-auth/node";
 import { sql } from "drizzle-orm";
-import type { Request, Response } from "express";
-import type express from "express";
+import type { NextFunction, Request, Response } from "express";
 import { auth } from "./auth";
 import { db } from "./db";
 
@@ -16,28 +11,32 @@ function toHeaders(req: Request): Headers {
 export async function sessionMiddleware(
   req: Request,
   _res: Response,
-  next: express.NextFunction,
+  next: NextFunction,
 ): Promise<void> {
-  const headers = toHeaders(req);
-  let session = await auth.api.getSession({ headers });
-  if (session?.session && !session.session.activeOrganizationId) {
-    const raw = await auth.api.listOrganizations({ headers });
-    const list = Array.isArray(raw) ? raw : ((raw as { data?: { id: string }[] })?.data ?? []);
-    if (list.length === 1) {
-      await auth.api.setActiveOrganization({
-        body: { organizationId: list[0].id },
-        headers,
-      });
-      session = await auth.api.getSession({ headers });
+  try {
+    const headers = toHeaders(req);
+    let session = await auth.api.getSession({ headers });
+    if (session?.session && !session.session.activeOrganizationId) {
+      const raw = await auth.api.listOrganizations({ headers });
+      const list = Array.isArray(raw) ? raw : ((raw as { data?: { id: string }[] })?.data ?? []);
+      if (list.length === 1) {
+        await auth.api.setActiveOrganization({
+          body: { organizationId: list[0].id },
+          headers,
+        });
+        session = await auth.api.getSession({ headers });
+      }
     }
+    req.session = session ?? null;
+    req.user = session?.user ?? null;
+    req.activeOrganizationId = session?.session?.activeOrganizationId ?? null;
+    next();
+  } catch (err) {
+    next(err);
   }
-  req.session = session ?? null;
-  req.user = session?.user ?? null;
-  req.activeOrganizationId = session?.session?.activeOrganizationId ?? null;
-  next();
 }
 
-export function requireAuth(req: Request, res: Response, next: express.NextFunction): void {
+export function requireAuth(req: Request, res: Response, next: NextFunction): void {
   if (!req.session?.user) {
     res.status(401).json({ error: "Unauthorized" });
     return;
@@ -45,7 +44,7 @@ export function requireAuth(req: Request, res: Response, next: express.NextFunct
   next();
 }
 
-export function requireTenant(req: Request, res: Response, next: express.NextFunction): void {
+export function requireTenant(req: Request, res: Response, next: NextFunction): void {
   if (!req.activeOrganizationId) {
     res.status(403).json({ error: "No active organization" });
     return;
@@ -56,14 +55,18 @@ export function requireTenant(req: Request, res: Response, next: express.NextFun
 export async function tenantContextMiddleware(
   req: Request,
   _res: Response,
-  next: express.NextFunction,
+  next: NextFunction,
 ): Promise<void> {
-  if (req.activeOrganizationId) {
-    await db.execute(
-      sql`SELECT set_config('app.current_organization_id', ${req.activeOrganizationId}, true)`,
-    );
+  try {
+    if (req.activeOrganizationId) {
+      await db.execute(
+        sql`SELECT set_config('app.current_organization_id', ${req.activeOrganizationId}, true)`,
+      );
+    }
+    next();
+  } catch (err) {
+    next(err);
   }
-  next();
 }
 
 export const protectedChain = [
