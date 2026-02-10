@@ -19,11 +19,14 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
     setError(null);
     setLoading(true);
     const { error: err } = await authClient.signIn.email({ email, password });
-    setLoading(false);
     if (err) {
+      setLoading(false);
       setError(err.message ?? "Sign in failed");
       return;
     }
+    // Ensure client session store is updated before navigating, so ProtectedLayout sees the session
+    await authClient.getSession();
+    setLoading(false);
     navigate("/dashboard", { replace: true });
   }
 
