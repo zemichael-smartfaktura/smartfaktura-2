@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalPassThroughEnv": ["VITE_API_URL", "DATABASE_URL"],
+  "globalPassThroughEnv": ["VITE_API_URL", "DATABASE_URL", "BETTER_AUTH_SECRET", "BETTER_AUTH_URL"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -18,29 +18,12 @@
       ],
       "cache": true
     },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:generate": {
-      "cache": false
-    },
-    "db:migrate": {
-      "cache": false
-    },
-    "db:studio": {
-      "cache": false
-    },
-    "lint": {
-      "dependsOn": ["^build"],
-      "inputs": ["src/**", "package.json", "tsconfig.json"]
-    },
-    "test": {
-      "dependsOn": ["^build"],
-      "inputs": ["src/**", "package.json"]
-    },
-    "clean": {
-      "cache": false
-    }
+    "dev": { "cache": false, "persistent": true },
+    "db:generate": { "cache": false },
+    "db:migrate": { "cache": false },
+    "db:studio": { "cache": false },
+    "lint": { "dependsOn": ["^build"], "inputs": ["src/**", "package.json", "tsconfig.json"] },
+    "test": { "dependsOn": ["^build"], "inputs": ["src/**", "package.json"] },
+    "clean": { "cache": false }
   }
 }
