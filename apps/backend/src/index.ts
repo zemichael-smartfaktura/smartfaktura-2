@@ -1,16 +1,19 @@
+/**
+ * Express app: health, Better Auth mount, protected routes (session + tenant).
+ */
 import "./env-load";
 import type { HealthResponse } from "@smartfaktura/shared-types";
-import { fromNodeHeaders, toNodeHandler } from "better-auth/node";
+import { toNodeHandler } from "better-auth/node";
 import cors from "cors";
 import express from "express";
 import { auth } from "./auth";
 import { env } from "./env";
+import { protectedChain } from "./middleware";
 
 console.log("Env loaded:", { PORT: env.PORT });
 
 const app = express();
 
-// CORS: allow frontend origin and credentials (cookies)
 app.use(
   cors({
     origin: env.BETTER_AUTH_URL,
@@ -18,31 +21,25 @@ app.use(
   }),
 );
 
-// Better Auth first — do NOT use express.json() before it (docs: or client API gets stuck)
+// Better Auth first — do NOT use express.json() before it (client API can get stuck)
 app.use("/auth", (req, res) => toNodeHandler(auth)(req, res));
 
-// JSON only for app routes (after auth handler)
 app.use(express.json());
 
-// Health (no auth)
 app.get("/health", (_req, res) => {
   const body: HealthResponse = { status: "SmartFaktura backend is alive", env: "valid" };
   res.json(body);
 });
 
-// Protected: get current session (401 if no session)
-app.get("/me", async (req, res) => {
-  const session = await auth.api.getSession({
-    headers: fromNodeHeaders(req.headers as Record<string, string | string[] | undefined>),
-  });
-  if (!session) {
-    res.status(401).json({ error: "Unauthorized" });
-    return;
-  }
+app.get("/me", ...protectedChain, (req, res) => {
   res.json({
-    user: session.user,
-    session: { activeOrganizationId: session.session?.activeOrganizationId },
+    user: req.user,
+    session: { activeOrganizationId: req.activeOrganizationId },
   });
+});
+
+app.get("/tenant-context", ...protectedChain, (req, res) => {
+  res.json({ organizationId: req.activeOrganizationId });
 });
 
 app.listen(env.PORT, () => {
