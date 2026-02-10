@@ -12,11 +12,18 @@
     "env:validate": "bun run ./scripts/env-validate.ts"
   },
   "dependencies": {
+    "@base-ui/react": "^1.1.0",
+    "class-variance-authority": "^0.7.1",
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-separator": "^1.1.8",
+    "@radix-ui/react-slot": "^1.2.4",
     "@smartfaktura/shared-types": "workspace:*",
     "better-auth": "^1.4.18",
+    "clsx": "^2.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.13.0"
+    "react-router-dom": "^7.13.0",
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
