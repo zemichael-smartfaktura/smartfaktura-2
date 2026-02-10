@@ -1,13 +1,18 @@
-function App() {
+import { Route, Routes } from "react-router-dom";
+import ProtectedLayout from "./components/ProtectedLayout";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+export default function App() {
   return (
-    <div>
-      <h1>SmartFaktura</h1>
-      <p>Invoicing for small businesses.</p>
-      <p>
-        <small>Backend health: check /api/health</small>
-      </p>
-    </div>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route element={<ProtectedLayout />}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
+    </Routes>
   );
 }
-
-export default App;
