@@ -1,11 +1,11 @@
-import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { organization } from "better-auth/plugins";
 /**
  * Better-auth config: email+password, Organization plugin (tenant = org).
  * MVP scope: one org per user, creator role owner, no Teams/Admin/OAuth/invite flow.
  * Backend-only; do not add plugins or auth methods without product scope.
  */
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { organization } from "better-auth/plugins";
 import { eq } from "drizzle-orm";
 import { db } from "./db";
 import * as schema from "./db/schema";
@@ -30,6 +30,7 @@ export const auth = betterAuth({
   secret: env.BETTER_AUTH_SECRET,
   baseURL: env.BETTER_AUTH_URL,
   basePath: "/auth",
+  trustedOrigins: [env.CORS_ORIGIN],
   plugins: [
     organization({
       creatorRole: "owner",
@@ -49,21 +50,25 @@ export const auth = betterAuth({
       consentGivenAt: { type: "date", required: false },
     },
   },
+  advanced: {
+    cookiePrefix: "smartfaktura",
+    defaultCookieAttributes: {
+      sameSite: "lax",
+      httpOnly: true,
+      secure: env.BETTER_AUTH_URL.startsWith("https"),
+    },
+  },
   databaseHooks: {
     user: {
       create: {
         after: async (user) => {
-          try {
-            await auth.api.createOrganization({
-              body: {
-                name: "My Company",
-                slug: `org-${user.id}`,
-                userId: user.id,
-              },
-            });
-          } catch (err) {
-            console.error("[AUTH] Failed to create default organization for user", user.id, err);
-          }
+          await auth.api.createOrganization({
+            body: {
+              name: "My Company",
+              slug: `org-${user.id}`,
+              userId: user.id,
+            },
+          });
         },
       },
     },
