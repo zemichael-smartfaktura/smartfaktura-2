@@ -2,7 +2,7 @@ import { PATHS } from "@/routes/paths";
 import { Link } from "react-router-dom";
 import { SignupForm } from "./signup-form.tsx";
 
-export default function Register() {
+export default function Signup() {
   return (
     <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
       <div className="flex w-full max-w-sm flex-col gap-6 md:max-w-4xl">

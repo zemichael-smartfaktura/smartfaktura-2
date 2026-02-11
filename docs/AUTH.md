@@ -68,7 +68,7 @@ MVP scope is **one user per company**. The Organization plugin still uses roles:
 
 - **Invitation table:** Yes — the Organization plugin creates it. We do **not** use the invite flow in MVP (single user per company). The table exists so we can enable “invite teammate to company” later without schema changes.
 - **Verification table:** Yes — better-auth creates it. It stores tokens for email verification, password reset, magic links, etc. We need the table if we enable any of those flows; better-auth creates it by default.
-- **Email verification in MVP:** Not in scope. We do **not** require “verify email before login” for MVP. Users can register and log in with email+password without a verification step. If we add email verification later, we enable it in better-auth config; the verification table is already there.
+- **Email verification in MVP:** Not in scope. We do **not** require “verify email before login” for MVP. Users can sign up and log in with email+password without a verification step. If we add email verification later, we enable it in better-auth config; the verification table is already there.
 
 ## 7. What we do not implement in MVP
 
