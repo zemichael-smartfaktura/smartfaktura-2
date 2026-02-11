@@ -1,3 +1,7 @@
+# CI runs on PRs and pushes to main.
+# Backend (Render): render.yaml — buildFilter, autoDeployTrigger: checksPass.
+# Frontend (Vercel): apps/frontend/vercel.json — set Root Directory to apps/frontend in Dashboard and enable "Skip deployments when no changes to root or its dependencies".
+
 name: CI
 
 on:
@@ -28,10 +32,24 @@ jobs:
       - name: Test
         run: bun run test
 
+      - name: Paths filter
+        id: paths
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            backend:
+              - 'apps/backend/**'
+              - 'packages/shared-types/**'
+            frontend:
+              - 'apps/frontend/**'
+              - 'packages/shared-types/**'
+
       - name: Build backend
+        if: steps.paths.outputs.backend == 'true'
         run: bun run build -- --filter=@smartfaktura/backend
 
       - name: Build frontend
+        if: steps.paths.outputs.frontend == 'true'
         env:
           VITE_API_URL: https://api.example.com
         run: bun run build -- --filter=@smartfaktura/frontend
