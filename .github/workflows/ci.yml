@@ -1,12 +1,9 @@
-# CI runs on every PR and every push (any branch). Paths filter uses "files in this push/PR" so only touched app builds.
-# Render: linked to main only, deploy on commit; buildFilter limits deploys to backend/shared-types changes.
-# Vercel: branch previews for PRs; production from main. Root Directory apps/frontend, skip when no changes.
-
 name: CI
 
 on:
   pull_request:
   push:
+    branches: [main]
 
 jobs:
   build:
@@ -31,7 +28,6 @@ jobs:
       - name: Test
         run: bun run test
 
-      # base = current branch ref → "files changed in this push only" (works on any branch)
       - name: Paths filter
         id: paths
         uses: dorny/paths-filter@v3
