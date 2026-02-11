@@ -97,6 +97,10 @@
   --font-sans: "DM Sans", system-ui, sans-serif;
 }
 
+#root {
+  isolation: isolate;
+}
+
 body {
   margin: 0;
   height: 100vh;
