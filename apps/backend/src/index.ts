@@ -1,4 +1,5 @@
 /**
+ * Backend-only change: verify only backend build + Render deploy (no frontend/Vercel).
  * Express app: CORS, Better Auth, public/protected routes, 404, error handler.
  */
 import "./env-load";
