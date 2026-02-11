@@ -1,3 +1,4 @@
+// Frontend-only change: test deploy (only Vercel should deploy)
 import { ProtectedLayout, fallbackTo, protectedRoutes, publicRoutes } from "@/routes";
 import { Navigate, Route, Routes } from "react-router-dom";
 
