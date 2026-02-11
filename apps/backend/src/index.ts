@@ -14,7 +14,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: env.BETTER_AUTH_URL,
+    origin: env.CORS_ORIGIN,
     credentials: true,
   }),
 );
@@ -34,8 +34,8 @@ app.use((_req: Request, res: Response) => {
 // Global error handler — must be the last middleware (4 args required)
 app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
   console.error("[ERROR]", err);
-  const message = err instanceof Error ? err.message : "Internal server error";
-  res.status(500).json({ error: message });
+  // Never leak internal error details to the client
+  res.status(500).json({ error: "Internal server error" });
 });
 
 const server = app.listen(env.PORT, () => {
