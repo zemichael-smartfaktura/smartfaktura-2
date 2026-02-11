@@ -49,7 +49,8 @@ MVP scope is **one user per company**. The Organization plugin still uses roles:
 
 - **Env (required):**
   - `BETTER_AUTH_SECRET` — 32+ character secret (e.g. `openssl rand -base64 32`). Used for signing and encryption.
-  - `BETTER_AUTH_URL` — Base URL of the app (e.g. `https://app.example.com` or `http://localhost:3000`).
+  - `BETTER_AUTH_URL` — Base URL of the **backend** (e.g. `https://api.smartfaktura.tech` or `http://localhost:3001`). Used by better-auth for callback URLs and CSRF.
+  - `CORS_ORIGIN` — Frontend origin (e.g. `https://smartfaktura.tech` or `http://localhost:5173`). Used for CORS `Access-Control-Allow-Origin`.
 - **Cookies:** better-auth uses httpOnly, secure (in production), and SameSite=Lax by default. For strict HTTPS, set `useSecureCookies: true`.
 - **Database:** Use a single PostgreSQL database; Drizzle adapter shares it with app schema. Connection pooling and SSL are infra concerns (see INFRASTRUCTURE.md), not auth config.
 
