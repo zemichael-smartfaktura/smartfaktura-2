@@ -1,6 +1,7 @@
+import { authClient } from "@/lib/auth-client";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { authClient } from "../lib/auth-client";
+import { PATHS } from "./paths";
 
 export default function ProtectedLayout() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function ProtectedLayout() {
   useEffect(() => {
     if (isPending) return;
     if (!session?.user) {
-      navigate("/login", { replace: true });
+      navigate(PATHS.login, { replace: true });
     }
   }, [session, isPending, navigate]);
 

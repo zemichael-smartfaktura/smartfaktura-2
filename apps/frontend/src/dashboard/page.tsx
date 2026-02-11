@@ -1,5 +1,6 @@
+import { authClient } from "@/lib/auth-client";
+import { PATHS } from "@/routes/paths";
 import { useNavigate } from "react-router-dom";
-import { authClient } from "../lib/auth-client";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -7,7 +8,7 @@ export default function Dashboard() {
 
   async function signOut() {
     await authClient.signOut();
-    navigate("/login", { replace: true });
+    navigate(PATHS.login, { replace: true });
   }
 
   return (
