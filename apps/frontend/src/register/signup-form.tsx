@@ -34,11 +34,14 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
       email,
       password,
     });
-    setLoading(false);
     if (err) {
+      setLoading(false);
       setError(err.message ?? "Sign up failed");
       return;
     }
+    // Ensure client session store is updated before navigating, so ProtectedLayout sees the session
+    await authClient.getSession();
+    setLoading(false);
     navigate(PATHS.dashboard, { replace: true });
   };
 
