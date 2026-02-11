@@ -1,4 +1,4 @@
-// Frontend-only change #2: verify only frontend build + Vercel preview deploy
+// Frontend-only: verify only frontend build + Vercel deploy (no backend/Render)
 import { ProtectedLayout, fallbackTo, protectedRoutes, publicRoutes } from "@/routes";
 import { Navigate, Route, Routes } from "react-router-dom";
 
