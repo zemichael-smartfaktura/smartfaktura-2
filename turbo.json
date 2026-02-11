@@ -1,7 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalPassThroughEnv": ["VITE_API_URL", "DATABASE_URL", "BETTER_AUTH_SECRET", "BETTER_AUTH_URL"],
+  "globalPassThroughEnv": [
+    "VITE_API_URL",
+    "DATABASE_URL",
+    "BETTER_AUTH_SECRET",
+    "BETTER_AUTH_URL",
+    "CORS_ORIGIN"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
