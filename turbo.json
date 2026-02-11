@@ -24,12 +24,22 @@
       ],
       "cache": true
     },
-    "dev": { "cache": false, "persistent": true },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
     "db:generate": { "cache": false },
     "db:migrate": { "cache": false },
     "db:studio": { "cache": false },
-    "lint": { "dependsOn": ["^build"], "inputs": ["src/**", "package.json", "tsconfig.json"] },
-    "test": { "dependsOn": ["^build"], "inputs": ["src/**", "package.json"] },
+    "start": { "cache": false },
+    "lint": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "package.json", "tsconfig.json"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "package.json"]
+    },
     "clean": { "cache": false }
   }
 }

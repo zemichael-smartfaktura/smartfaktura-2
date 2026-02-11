@@ -7,6 +7,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:api": "turbo run dev --filter=@smartfaktura/backend",
+    "start:api": "turbo run start --filter=@smartfaktura/backend",
     "dev:app": "turbo run dev --filter=@smartfaktura/frontend",
     "lint": "turbo run lint && bun run lint:biome",
     "db:generate": "turbo run db:generate --filter=@smartfaktura/backend",
