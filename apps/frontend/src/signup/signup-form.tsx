@@ -80,9 +80,6 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                   required
                   autoComplete="email"
                 />
-                <FieldDescription>
-                  We&apos;ll use this to contact you. We will not share your email with anyone else.
-                </FieldDescription>
               </Field>
               <Field>
                 <FieldLabel htmlFor="password">Password</FieldLabel>

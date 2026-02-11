@@ -12,22 +12,26 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="px-8 py-4">
-      <h1>Dashboard</h1>
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
       {session?.user && (
-        <p>
-          Signed in as <strong>{session.user.email}</strong>
+        <div className="space-y-4">
+          <p>
+            Signed in as <strong>{session.user.email}</strong>
+          </p>
           {session.session?.activeOrganizationId && (
-            <>
-              {" "}
-              · Org: <code>{session.session.activeOrganizationId}</code>
-            </>
+            <p>
+              Active Organization: <code>{session.session.activeOrganizationId}</code>
+            </p>
           )}
-          {" · "}
-          <button type="button" onClick={signOut}>
+          <button
+            type="button"
+            onClick={signOut}
+            className="text-primary underline underline-offset-4 hover:text-primary/80"
+          >
             Sign out
           </button>
-        </p>
+        </div>
       )}
     </div>
   );
