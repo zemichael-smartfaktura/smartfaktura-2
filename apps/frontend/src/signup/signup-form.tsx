@@ -124,9 +124,15 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               </FieldDescription>
             </FieldGroup>
           </form>
-          <div className="bg-muted relative hidden md:block">
+          <div className="bg-muted relative hidden md:flex items-center justify-center p-8">
             <div
               className="absolute inset-0 bg-linear-to-br from-primary/20 to-primary/5"
+              aria-hidden
+            />
+            <img
+              src="/images/auth/auth-illustration.svg"
+              alt=""
+              className="relative h-full max-h-[300px] w-full max-w-sm object-contain"
               aria-hidden
             />
           </div>

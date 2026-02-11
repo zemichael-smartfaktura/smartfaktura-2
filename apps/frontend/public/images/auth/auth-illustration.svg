@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="docShade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0d9488" stop-opacity="0.04"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0f766e" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <!-- Background documents (stack) -->
+  <path d="M70 210h220v72H70a6 6 0 0 1-6-6v-60a6 6 0 0 1 6-6z" fill="#0d9488" fill-opacity="0.08"/>
+  <path d="M82 198h220v72H82a6 6 0 0 1-6-6v-60a6 6 0 0 1 6-6z" fill="#0d9488" fill-opacity="0.1"/>
+  <!-- Main invoice card -->
+  <g filter="url(#softShadow)">
+    <rect x="95" y="85" width="200" height="155" rx="10" fill="white" stroke="#0d9488" stroke-width="1.5" stroke-opacity="0.25"/>
+    <!-- Header bar -->
+    <rect x="95" y="85" width="200" height="28" rx="10" fill="#0d9488" fill-opacity="0.2"/>
+    <rect x="95" y="99" width="200" height="2" fill="#0d9488" fill-opacity="0.15"/>
+    <!-- Line items -->
+    <rect x="112" y="125" width="90" height="8" rx="3" fill="#0d9488" fill-opacity="0.35"/>
+    <rect x="112" y="142" width="130" height="6" rx="2" fill="#0d9488" fill-opacity="0.2"/>
+    <rect x="112" y="158" width="110" height="6" rx="2" fill="#0d9488" fill-opacity="0.2"/>
+    <line x1="112" y1="178" x2="272" y2="178" stroke="#0d9488" stroke-width="2" stroke-opacity="0.2"/>
+    <rect x="112" y="192" width="70" height="8" rx="2" fill="#0d9488" fill-opacity="0.25"/>
+    <rect x="200" y="192" width="72" height="8" rx="4" fill="#0d9488"/>
+  </g>
+  <!-- Check circle -->
+  <g transform="translate(255 155)">
+    <circle cx="36" cy="36" r="32" fill="white" stroke="#0d9488" stroke-width="2.5" fill-opacity="0.95"/>
+    <path d="M24 36l10 10 20-22" stroke="#0d9488" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <!-- Receipt / second doc -->
+  <g opacity="0.85">
+    <rect x="265" y="215" width="80" height="48" rx="6" fill="white" stroke="#0d9488" stroke-width="1.2" stroke-opacity="0.3"/>
+    <line x1="275" y1="228" x2="335" y2="228" stroke="#0d9488" stroke-width="1.5" stroke-opacity="0.25"/>
+    <line x1="275" y1="238" x2="320" y2="238" stroke="#0d9488" stroke-width="1" stroke-opacity="0.2"/>
+    <line x1="275" y1="248" x2="310" y2="248" stroke="#0d9488" stroke-width="1" stroke-opacity="0.2"/>
+  </g>
+</svg>
