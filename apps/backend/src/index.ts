@@ -13,9 +13,22 @@ import { registerRoutes } from "./routes";
 
 const app = express();
 
+// Allow CORS_ORIGIN(s) and any Vercel preview (*.vercel.app)
+function allowedOrigin(origin: string | undefined): boolean {
+  if (!origin) return false;
+  try {
+    const parsed = new URL(origin);
+    if (parsed.origin === env.CORS_ORIGIN) return true;
+    if (parsed.hostname.endsWith(".vercel.app")) return true;
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 app.use(
   cors({
-    origin: env.CORS_ORIGIN,
+    origin: (origin, cb) => cb(null, allowedOrigin(origin)),
     credentials: true,
   }),
 );
