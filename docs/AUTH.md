@@ -20,7 +20,7 @@ Auth tables (user, session, account, verification, organization, member, invitat
 
 ### 2.1 Setup
 
-- **Backend:** Create auth instance with `betterAuth()`, `drizzleAdapter(db, { provider: "pg" })`, and `organization()` plugin. Mount better-auth handler on Express (e.g. `/api/auth/*`).
+- **Backend:** Create auth instance with `betterAuth()`, `drizzleAdapter(db, { provider: "pg" })`, and `organization()` plugin. Mount the handler at **`/auth`**; frontend uses `VITE_API_URL` and calls `/auth/*` (no proxy).
 - **Schema:** Run `bunx @better-auth/cli@latest generate` to get Drizzle schema for auth tables; then `bunx drizzle-kit generate` and `bunx drizzle-kit migrate`. Do not hand-write auth table definitions—better-auth may add or change columns.
 - **Performance:** Enable `experimental: { joins: true }` for better performance on `/get-session` and organization endpoints.
 
