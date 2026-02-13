@@ -53,7 +53,9 @@ export const auth = betterAuth({
   advanced: {
     cookiePrefix: "smartfaktura",
     defaultCookieAttributes: {
-      sameSite: "lax",
+      // Cross-origin (e.g. frontend on Vercel, API on api.smartfaktura.tech) requires SameSite=None
+      // so the browser sends the session cookie on fetch(); Lax would not be sent cross-origin.
+      sameSite: env.BETTER_AUTH_URL.startsWith("https") ? "none" : "lax",
       httpOnly: true,
       secure: env.BETTER_AUTH_URL.startsWith("https"),
     },
