@@ -6,6 +6,8 @@ Aligned with [ARCHITECTURE.md](ARCHITECTURE.md) (Drizzle 0.45.x, PostgreSQL 15+)
 
 **Local development:** To run the app locally you need a Postgres database and **`DATABASE_URL`** set in `apps/backend/.env.development`. From the repo root: `bun run db:migrate` to apply migrations, and optionally `bun run db:studio` to open Drizzle Studio. See the root [README](../README.md) and [apps/backend/README](../apps/backend/README.md) for full setup.
 
+**Production:** The database is deployed on **Supabase**. Use the connection string from your Supabase project (Settings → Database) as `DATABASE_URL` for the backend (e.g. on Render). Run migrations via your deploy pipeline or manually against the Supabase Postgres instance.
+
 ---
 
 ## 1. Overview

@@ -12,7 +12,7 @@ Have the following set up locally before running the app:
 
 - **Bun** — runtime and package manager. All tooling uses `bun run`, `bunx`, `bun install`. Do not use npm/yarn/pnpm.
 - **PostgreSQL** — the backend requires a local Postgres instance (15+). Create a database (e.g. `smartfaktura`) and have a connection string ready for `DATABASE_URL`.
-- **Environment files** — copy `apps/backend/.env.example` → `apps/backend/.env.development` and set `DATABASE_URL` (e.g. `postgres://user:pass@localhost:5432/smartfaktura`). For frontend, optionally copy `apps/frontend/.env.example` → `apps/frontend/.env.development` and set `VITE_API_URL` (default `http://localhost:3001`).
+- **Environment files** — copy each app’s `.env.example` → `.env.development` and set the listed variables (see `apps/backend/.env.example`, `apps/frontend/.env.example`).
 
 ---
 
@@ -44,9 +44,9 @@ Per-app detail: **`apps/backend/README.md`** · **`apps/frontend/README.md`**
 
 ### Database (local)
 
-The backend needs a Postgres database and **`DATABASE_URL`** in env (e.g. in `apps/backend/.env.development`). From repo root:
+The backend needs a Postgres database and env vars as in `apps/backend/.env.example`. From repo root:
 
-1. Copy `apps/backend/.env.example` → `apps/backend/.env.development` and set `DATABASE_URL`.
+1. Copy `apps/backend/.env.example` → `apps/backend/.env.development` and set the variables listed there.
 2. Run **`bun run db:migrate`** to apply migrations.
 3. Optionally run **`bun run db:studio`** to inspect data.
 

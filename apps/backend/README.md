@@ -21,6 +21,6 @@ bun run dev
 | `bun run db:migrate`   | Apply migrations (requires `DATABASE_URL`) |
 | `bun run db:studio`    | Open Drizzle Studio (requires `DATABASE_URL`) |
 
-**Environment:** The API and all DB commands require **`DATABASE_URL`**. Copy `.env.example` to `.env.development` and set `PORT` (optional, default 3001) and `DATABASE_URL` (Postgres connection string).
+**Environment:** The API and all DB commands require **`DATABASE_URL`**, **`BETTER_AUTH_SECRET`**, **`BETTER_AUTH_URL`** (backend URL), and **`CORS_ORIGIN`** (frontend URL). Copy `.env.example` to `.env.development` and set `PORT` (optional, default 3001), `DATABASE_URL` (Postgres connection string), and the auth/CORS variables (see `.env.example`).
 
 **Migrations:** App migrations live in `drizzle/`. Run `db:migrate` only when `DATABASE_URL` is set (e.g. from `.env.development`). Run app migrations **after** the better-auth schema has been applied (Week 2).
