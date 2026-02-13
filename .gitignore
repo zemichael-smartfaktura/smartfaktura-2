@@ -23,6 +23,7 @@ coverage
 
 # Project-specific
 *.txt
+!**/robots.txt
 .cursor
 questions.md
 issues.md
