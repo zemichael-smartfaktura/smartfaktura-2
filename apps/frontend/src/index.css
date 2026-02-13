@@ -103,8 +103,11 @@
 
 body {
   margin: 0;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   font-family: var(--font-sans);
   background-color: var(--background);
   color: var(--foreground);
