@@ -7,6 +7,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:api": "turbo run dev --filter=@smartfaktura/backend",
+    "start:api": "turbo run start --filter=@smartfaktura/backend",
     "dev:app": "turbo run dev --filter=@smartfaktura/frontend",
     "lint": "turbo run lint && bun run lint:biome",
     "db:generate": "turbo run db:generate --filter=@smartfaktura/backend",
@@ -21,6 +22,7 @@
     "@biomejs/biome": "^1.9.4",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
+    "shadcn": "^3.8.4",
     "turbo": "^2.3.0"
   },
   "engines": {

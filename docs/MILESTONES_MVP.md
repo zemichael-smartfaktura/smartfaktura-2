@@ -120,7 +120,7 @@ Acceptance criteria:
 
 
 
-Users can register and log in
+Users can sign up and log in
 Data is isolated per tenant
 No cross-tenant access possible
 

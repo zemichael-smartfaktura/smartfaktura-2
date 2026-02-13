@@ -1,0 +1,28 @@
+# Backend only. Frontend deploys on Vercel.
+# Deploy: https://render.com/docs/blueprint-spec
+# Build filters: https://render.com/docs/monorepo-support#setting-build-filters
+# CI: https://render.com/docs/deploys#integrating-with-ci
+
+services:
+  - type: web
+    name: smartfaktura-backend
+    # Node runtime includes Bun (https://render.com/docs/native-runtimes). Bun used via .bun-version / bun.lock.
+    runtime: node
+    # Deploy only when backend or shared-types change
+    buildFilter:
+      paths:
+        - apps/backend/**
+        - packages/shared-types/**
+    # Deploy only after GitHub Actions CI passes
+    autoDeployTrigger: checksPass
+    buildCommand: bun install && bun run build -- --filter=@smartfaktura/backend
+    startCommand: bun run start --filter=@smartfaktura/backend
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: BETTER_AUTH_SECRET
+        sync: false
+      - key: BETTER_AUTH_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false

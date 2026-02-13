@@ -20,7 +20,7 @@ Auth tables (user, session, account, verification, organization, member, invitat
 
 ### 2.1 Setup
 
-- **Backend:** Create auth instance with `betterAuth()`, `drizzleAdapter(db, { provider: "pg" })`, and `organization()` plugin. Mount better-auth handler on Express (e.g. `/api/auth/*`).
+- **Backend:** Create auth instance with `betterAuth()`, `drizzleAdapter(db, { provider: "pg" })`, and `organization()` plugin. Mount the handler at **`/auth`**; frontend uses `VITE_API_URL` and calls `/auth/*` (no proxy).
 - **Schema:** Run `bunx @better-auth/cli@latest generate` to get Drizzle schema for auth tables; then `bunx drizzle-kit generate` and `bunx drizzle-kit migrate`. Do not hand-write auth table definitions—better-auth may add or change columns.
 - **Performance:** Enable `experimental: { joins: true }` for better performance on `/get-session` and organization endpoints.
 
@@ -49,7 +49,8 @@ MVP scope is **one user per company**. The Organization plugin still uses roles:
 
 - **Env (required):**
   - `BETTER_AUTH_SECRET` — 32+ character secret (e.g. `openssl rand -base64 32`). Used for signing and encryption.
-  - `BETTER_AUTH_URL` — Base URL of the app (e.g. `https://app.example.com` or `http://localhost:3000`).
+  - `BETTER_AUTH_URL` — Base URL of the **backend** (e.g. `https://api.smartfaktura.tech` or `http://localhost:3001`). Used by better-auth for callback URLs and CSRF.
+  - `CORS_ORIGIN` — Frontend origin (e.g. `https://smartfaktura.tech` or `http://localhost:5173`). Used for CORS `Access-Control-Allow-Origin`.
 - **Cookies:** better-auth uses httpOnly, secure (in production), and SameSite=Lax by default. For strict HTTPS, set `useSecureCookies: true`.
 - **Database:** Use a single PostgreSQL database; Drizzle adapter shares it with app schema. Connection pooling and SSL are infra concerns (see INFRASTRUCTURE.md), not auth config.
 
@@ -67,7 +68,7 @@ MVP scope is **one user per company**. The Organization plugin still uses roles:
 
 - **Invitation table:** Yes — the Organization plugin creates it. We do **not** use the invite flow in MVP (single user per company). The table exists so we can enable “invite teammate to company” later without schema changes.
 - **Verification table:** Yes — better-auth creates it. It stores tokens for email verification, password reset, magic links, etc. We need the table if we enable any of those flows; better-auth creates it by default.
-- **Email verification in MVP:** Not in scope. We do **not** require “verify email before login” for MVP. Users can register and log in with email+password without a verification step. If we add email verification later, we enable it in better-auth config; the verification table is already there.
+- **Email verification in MVP:** Not in scope. We do **not** require “verify email before login” for MVP. Users can sign up and log in with email+password without a verification step. If we add email verification later, we enable it in better-auth config; the verification table is already there.
 
 ## 7. What we do not implement in MVP
 

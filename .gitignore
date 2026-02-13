@@ -23,6 +23,10 @@ coverage
 
 # Project-specific
 *.txt
+!**/robots.txt
 .cursor
 questions.md
 issues.md
+
+# MVP working docs (temp task/step lists — not committed)
+mvp-working/

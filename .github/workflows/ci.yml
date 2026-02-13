@@ -17,10 +17,10 @@ jobs:
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: "1"
+          bun-version: "1.3.8"
 
       - name: Install
-        run: bun install --frozen-lockfile
+        run: bun install
 
       - name: Lint
         run: bun run lint
@@ -28,10 +28,25 @@ jobs:
       - name: Test
         run: bun run test
 
+      - name: Paths filter
+        id: paths
+        uses: dorny/paths-filter@v3
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            backend:
+              - 'apps/backend/**'
+              - 'packages/shared-types/**'
+            frontend:
+              - 'apps/frontend/**'
+              - 'packages/shared-types/**'
+
       - name: Build backend
+        if: steps.paths.outputs.backend == 'true'
         run: bun run build -- --filter=@smartfaktura/backend
 
       - name: Build frontend
+        if: steps.paths.outputs.frontend == 'true'
         env:
           VITE_API_URL: https://api.example.com
         run: bun run build -- --filter=@smartfaktura/frontend
